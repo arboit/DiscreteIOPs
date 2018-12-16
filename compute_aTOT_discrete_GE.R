@@ -5,8 +5,9 @@
 source('./spectral.aw.R', echo=TRUE)
 
 #Load wavelenghts from COPS
-load(file="/home/arbg0002/L2/20160616_StationG207/COPS/BIN/20160616_COPS_CAST_001_160616_143228_URC.tsv.RData") 
+load(file="/Data/Insitu/GreenEdge/2016/L2/20160616_StationG207/COPS/BIN/20160616_COPS_CAST_001_160616_143228_URC.tsv.RData") 
 lambda = cops$LuZ.waves
+lambda[19] = 800 #875 missing from the DB
 
 #Load and get Ap at COPS wavelengths
 dat = read.csv("GE-Amundsen-particulate_absorption_120517.csv", header = TRUE)
@@ -42,7 +43,7 @@ a.g <- matrix(,nb_rows,19)
 
 
 # get Pure water absorption at COPS wavelengths
-lambda[19] = 800 #875 missing from the DB
+library(Riops)
 a.w = spectral.aw(lambda)
 
 
