@@ -2,11 +2,11 @@
 # SO TAKE DEPHTS 0.75 TO 2.1 m
 # -> just take the minimum depth
 
-compute.aTOT.discrete.GE <- function (station_date) {
+compute.aTOT.discrete.GE <- function (date_station) {
   
-  #station_date = "20160612_StationG110" # for testing
+  print(paste("discrete IOPs for",date_station))
 
-  station.nb=substring(station_date,18,23) # two extra spaces for case "G604.5"
+  station.nb=substring(date_station,18,23) # two extra spaces for case "G604.5"
   path = "/Data/Insitu/GreenEdge/2016/"
   
   source('./spectral.aw.R', echo=TRUE)
@@ -74,7 +74,8 @@ compute.aTOT.discrete.GE <- function (station_date) {
   
   
   # Plot and save results
-  png(filename = paste(path,"L2/",station_date,"/COPS/absorption.cops.png", sep=""))
+  if (station.nb != "409") {
+  png(filename = paste(path,"L2/",date_station,"/COPS/absorption.cops.png", sep=""))
   plot(lambda, a.tot, 
        xlab = "Wavelenght", ylab="Absorption", pch=19,
        ylim=c(0, max(a.tot)))
@@ -82,10 +83,10 @@ compute.aTOT.discrete.GE <- function (station_date) {
   lines(lambda, a.p.station, col=2, lwd=3)
   lines(300:800, spectral.aw(300:800), col=4, lwd=4)
   lines(lambda, a.g.station, col=3, lwd=3)
-  dev.off()
+  dev.off() }
   
   # write results in file absorption.cops.dat
-  file=paste(path,"L2/",station_date,"/COPS/absorption.cops.dat", sep="")
+  file=paste(path,"L2/",date_station,"/COPS/absorption.cops.dat", sep="")
   df = read.table(file,sep=";")
   nfile = length(df$V1) - 1
   a.mat = matrix(a.tot, nrow=nfile, ncol=19, byrow=T)
