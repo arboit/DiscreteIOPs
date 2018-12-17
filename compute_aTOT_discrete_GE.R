@@ -2,7 +2,7 @@
 # SO TAKE DEPHTS 0.75 TO 2.1 m
 # -> just take the minimum depth
 
-compute_aTOT_discrete_GE <- function (station_date) {
+compute.aTOT.discrete.GE <- function (station_date) {
   
   #date_station = "20160612_StationG110" # for testing
 
@@ -72,7 +72,6 @@ compute_aTOT_discrete_GE <- function (station_date) {
   
   
   # Plot and save results
-  date_station=paste(substr(station_date,6,13),"_StationIML4",sep="")
   png(filename = paste(path,"L2/",date_station,"/COPS/absorption.cops.png", sep=""))
   plot(lambda, a.tot, 
        xlab = "Wavelenght", ylab="Absorption", pch=19,
