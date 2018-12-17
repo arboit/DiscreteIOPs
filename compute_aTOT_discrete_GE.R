@@ -4,9 +4,9 @@
 
 compute.aTOT.discrete.GE <- function (station_date) {
   
-  #date_station = "20160612_StationG110" # for testing
+  #station_date = "20160612_StationG110" # for testing
 
-  station.nb=substring(date_station,18,23) # two extra spaces for case "G604.5"
+  station.nb=substring(station_date,18,23) # two extra spaces for case "G604.5"
   path = "/Data/Insitu/GreenEdge/2016/"
   
   source('./spectral.aw.R', echo=TRUE)
@@ -43,6 +43,7 @@ compute.aTOT.discrete.GE <- function (station_date) {
   a.p[,19]=as.numeric(dat_a.p$X800)
   
   station.indices_a.p = which(dat_a.p$Station==paste("G",station.nb, sep = ""))
+  if (length(station.indices_a.p) == 0) {print(paste("G",station.nb," missing from Ap", sep=""))}
   min_depth.index_a.p = station.indices_a.p[which(dat_a.p$Depth..m.[station.indices_a.p]==min(dat_a.p$Depth..m.[station.indices_a.p]))]
   a.p.station = a.p[min_depth.index_a.p,]
   
@@ -50,6 +51,7 @@ compute.aTOT.discrete.GE <- function (station_date) {
   dat_a.g = read.csv("cdom_amundsen_2016.csv", header = TRUE)
   
   station.indices_a.g = which(dat_a.g$station==paste("stnG",station.nb, sep = ""))
+  if (length(station.indices_a.g) == 0) {print(paste("G",station.nb," missing from Ag", sep=""))}
   depths_num = as.numeric(substring(dat_a.g$depth[station.indices_a.g],1,3))
   min_depth.index_a.g = station.indices_a.g[which(depths_num==min(depths_num))]
   
@@ -72,7 +74,7 @@ compute.aTOT.discrete.GE <- function (station_date) {
   
   
   # Plot and save results
-  png(filename = paste(path,"L2/",date_station,"/COPS/absorption.cops.png", sep=""))
+  png(filename = paste(path,"L2/",station_date,"/COPS/absorption.cops.png", sep=""))
   plot(lambda, a.tot, 
        xlab = "Wavelenght", ylab="Absorption", pch=19,
        ylim=c(0, max(a.tot)))
@@ -83,7 +85,7 @@ compute.aTOT.discrete.GE <- function (station_date) {
   dev.off()
   
   # write results in file absorption.cops.dat
-  file=paste(path,"L2/",date_station,"/COPS/absorption.cops.dat", sep="")
+  file=paste(path,"L2/",station_date,"/COPS/absorption.cops.dat", sep="")
   df = read.table(file,sep=";")
   nfile = length(df$V1) - 1
   a.mat = matrix(a.tot, nrow=nfile, ncol=19, byrow=T)
