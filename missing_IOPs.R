@@ -1,3 +1,7 @@
+# GreenEdge data :
+# http://www.obs-vlfr.fr/proof/ftpv/greenedge/db/DATA/AMUNDSEN/CDOM/
+# http://www.obs-vlfr.fr/proof/ftpv/greenedge//db/DATA/AMUNDSEN/ABSORPTION/PART/
+
 source('~/DiscreteIOPs/compute_aTOT_discrete_GE.R')
 
 missing_date_station = c(
@@ -25,7 +29,7 @@ missing_date_station = c(
 ##"20160624_StationG400", missing from discrete DB
 #"20160625_StationG403",
 ##"20160626_StationG406", missing from discrete DB
-"20160626_StationG409", # missing COPS -> make fake .dat file
+"20160626_StationG409" #, # missing COPS -> make PLACEHOLDER .dat file
 #"20160628_StationG413",
 #"20160628_StationG418",
 ##"20160629_StationG500", missing from discrete DB
@@ -62,7 +66,7 @@ missing_date_station = c(
 # [8] "20160621_StationG321" missing from discrete DB
 # [9] "20160624_StationG400" missing from discrete DB
 # [10] "20160626_StationG406" missing from discrete DB
-# [11] "20160626_StationG409" missing COPS -> make fake .dat file
+# [11] "20160626_StationG409" missing COPS -> make PLACEHOLDER .dat file
 # [12] "20160629_StationG500" missing from discrete DB
 # [13] "20160630_StationG503" missing from discrete DB
 # [14] "20160630_StationG506" missing from discrete DB
