@@ -14,12 +14,11 @@ compute.aTOT.discrete.GE <- function (date_station) {
   #Load wavelenghts from COPS
   load(file="/Data/Insitu/GreenEdge/2016/L2/20160616_StationG207/COPS/BIN/20160616_COPS_CAST_001_160616_143228_URC.tsv.RData") 
   lambda = cops$LuZ.waves
-  lambda[19] = 800 #875 missing from the DB
-  
+
   #Load and get Ap at COPS wavelengths
   dat_a.p = read.csv("GE-Amundsen-particulate_absorption_120517.csv", header = TRUE)
   nb_rows = length(dat_a.p$X340)
-  a.p <- matrix(,nb_rows,19)
+  a.p <- matrix(data=0,nb_rows,19)
   
   a.p[,1]=as.numeric(dat_a.p$X340)
   a.p[,2]=as.numeric(dat_a.p$X412)
@@ -40,8 +39,7 @@ compute.aTOT.discrete.GE <- function (date_station) {
   a.p[,17]=as.numeric(dat_a.p$X765)
   a.p[,18]=as.numeric(dat_a.p$X780)
   #a.p[,19]=as.numeric(dat_a.p$X875) #missing from the DB
-  a.p[,19]=as.numeric(dat_a.p$X800)
-  
+
   station.indices_a.p = which(dat_a.p$Station==paste("G",station.nb, sep = ""))
   if (length(station.indices_a.p) == 0) {print(paste("G",station.nb," missing from Ap", sep=""))}
   min_depth.index_a.p = station.indices_a.p[which(dat_a.p$Depth..m.[station.indices_a.p]==min(dat_a.p$Depth..m.[station.indices_a.p]))]
