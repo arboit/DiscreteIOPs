@@ -1,9 +1,12 @@
 # compute.aTOT.for.COPS <- function(pathIOP=".", cast="down", depth.interval=c(0.75,2.1), instrument = "ASPH")
 # SO TAKE DEPHTS 0.75 TO 2.1 m
 
-compute_aTOT_discrete_GE <- function (path,station_date) {
+compute_aTOT_discrete_GE <- function (station_date) {
   
-  station.nb="110"
+  #date_station = "20160612_StationG110" # for testing
+
+  station.nb=substring(date_station,18,21)
+  path = "/Data/Insitu/GreenEdge/2016/"
   
   source('./spectral.aw.R', echo=TRUE)
   
