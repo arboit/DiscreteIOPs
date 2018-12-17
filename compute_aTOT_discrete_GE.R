@@ -1,11 +1,12 @@
 # compute.aTOT.for.COPS <- function(pathIOP=".", cast="down", depth.interval=c(0.75,2.1), instrument = "ASPH")
 # SO TAKE DEPHTS 0.75 TO 2.1 m
+# -> just take the minimum depth
 
 compute_aTOT_discrete_GE <- function (station_date) {
   
   #date_station = "20160612_StationG110" # for testing
 
-  station.nb=substring(date_station,18,21)
+  station.nb=substring(date_station,18,23) # two extra spaces for case "G604.5"
   path = "/Data/Insitu/GreenEdge/2016/"
   
   source('./spectral.aw.R', echo=TRUE)
