@@ -57,6 +57,12 @@ compute_aTOT_discrete_GE <- function (station_date) {
   for (i in 1:16){ #the 3 last wavelengths are not in this data
     a.g.station[i]=dat_a.g$absorption[min_depth.index_a.g[which(dat_a.g$wavelength[min_depth.index_a.g]==lambda[i])]]
   }
+  # min_depth.index_a.g = station.indices_a.g[which(depths_num>=0.75 & depths_num <=2.1)]
+  # 
+  # a.g.station <- matrix(data=0,19) 
+  # for (i in 1:16){ #the 3 last wavelengths are not in this data
+  #   a.g.station[i]=mean(dat_a.g$absorption[min_depth.index_a.g[which(dat_a.g$wavelength[min_depth.index_a.g]==lambda[i])]])
+  # }
   
   # get Pure water absorption at COPS wavelengths
   library(Riops)
