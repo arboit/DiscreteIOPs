@@ -19,12 +19,13 @@ compute.aTOT.discrete.GE.from.Kd <- function (date_station) {
   
   #Use processed COPS data, saved 
   files.dat=read.csv(file=paste(path,"L2/",date_station,"/COPS/remove.cops.dat", sep = ""), sep = ";", header = FALSE)
-  good_casts = which(files.dat$V2==1)
-  if (length(good_casts != 1)) {
-    print(paste("CAUTION, the number of non-removed files for",date_station,"is",length(good_casts)))
-    one_good_cast = good_casts[1] # but an average should be taken instead...? (REVIEW THIS)
+  index_good_casts = which(files.dat$V2==1)
+  if (length(index_good_casts) != 1) {
+    print(paste("CAUTION, the number of non-removed files for",date_station,"is",length(index_good_casts)))
+    one_good_cast = index_good_casts[1] # but an average should be taken instead...? (REVIEW THIS)
+    print(paste("Taking the first valid cast, number =",one_good_cast))
   } else {
-    one_good_cast = good_casts
+    one_good_cast = index_good_casts
   }
   kept_cast = files.dat$V1[one_good_cast]
   
@@ -37,7 +38,7 @@ compute.aTOT.discrete.GE.from.Kd <- function (date_station) {
   Kd_lambda = cops$K0.EdZ.fitted[75,] #TAKE DEPHTS 0.75 TO 2.1 m ?? rownames(cops$K0.EdZ.fitted)[152]=="2.1"
   
   #a = Kd 0.90[1+2.25R]^-1 [1-R]
-  a_tot = Kd_lambda*0.9*(1-R_lambda)/(1+2.25*R_lambda)
+  a.tot = Kd_lambda*0.9*(1-R_lambda)/(1+2.25*R_lambda)
   
   # Plot and save results
   if (station.nb != "409") {
@@ -46,9 +47,10 @@ compute.aTOT.discrete.GE.from.Kd <- function (date_station) {
        xlab = "Wavelenght", ylab="Absorption", pch=19,
        ylim=c(0, max(a.tot)))
   
-  lines(lambda, a.p.station, col=2, lwd=3)
-  lines(300:800, spectral.aw(300:800), col=4, lwd=4)
-  lines(lambda, a.g.station, col=3, lwd=3)
+  #lines(lambda, a.p.station, col=2, lwd=3)
+  #source('./spectral.aw.R', echo=TRUE)
+  #lines(300:800, spectral.aw(300:800), col=4, lwd=4)
+  #xlines(lambda, a.g.station, col=3, lwd=3)
   dev.off() }
   
   # write results in file absorption.cops.dat
